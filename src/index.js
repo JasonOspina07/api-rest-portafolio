@@ -18,7 +18,7 @@ app.use('/api/users', userRoutes)
 // Ruta de prueba
 app.get('/', (req, res) => {
     res.json({ 
-        message: '¡API funcionando correctamente! 🚀',
+        message: '¡API funcionando correctamente!',
         version: '1.0.0'
     })
 })

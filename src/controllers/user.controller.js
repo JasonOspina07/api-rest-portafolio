@@ -7,7 +7,7 @@ const register = async (req, res) => {
     try {
         const { name, email, password } = req.body
 
-        // Verifica si el usuario ya existe
+        /* Verifica si el usuario ya existe*/
         const existingUser = await prisma.user.findUnique({
             where: { email }
         })
@@ -21,7 +21,7 @@ const register = async (req, res) => {
         /* Encripta la contraseña*/
         const hashedPassword = await bcrypt.hash(password, 10)
 
-        // Crea el usuario en la base de datos
+        /* Crea el usuario en la base de datos */
         const user = await prisma.user.create({
             data: {
                 name,
@@ -90,7 +90,7 @@ const login = async (req, res) => {
         res.status(500).json({ message: 'Error en el servidor', error: error.message })
     }
 }
-// Obtener perfil
+/* Obtener perfil*/
 const getProfile = async (req, res) => {
     try {
         const user = await prisma.user.findUnique({
