@@ -1,0 +1,40 @@
+name: CI
+
+# Cuándo correr este pipeline
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Correr tests
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Descarga el código del repo en la máquina virtual de GitHub
+      - name: Clonar repositorio
+        uses: actions/checkout@v4
+
+      # 2. Instala Node.js
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # 3. Instala las dependencias del proyecto
+      - name: Instalar dependencias
+        run: npm ci
+
+      # 4. Genera el cliente de Prisma (necesario porque el código lo importa,
+      #    aunque los tests no toquen la base de datos real)
+      - name: Generar cliente de Prisma
+        run: npx prisma generate
+
+      # 5. Corre los tests
+      - name: Ejecutar tests
+        run: npm test
+        env:
+          JWT_SECRET: secreto_de_pruebas_ci
