@@ -87,3 +87,4 @@ POST /api/users/login
 GET /api/users/profile
 Authorization: Bearer tu_token_jwt
 \```
+![CI](https://github.com/JasonOspina07/api-rest-portafolio/actions/workflows/ci.yml/badge.svg)
