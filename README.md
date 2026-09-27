@@ -1,5 +1,7 @@
 # API REST con autenticación JWT
 
+![CI](https://github.com/JasonOspina07/api-rest-portafolio/actions/workflows/ci.yml/badge.svg)
+
 API RESTful construida con Node.js, Express y PostgreSQL que implementa autenticación segura con JWT.
 
 ## Tecnologías
@@ -87,4 +89,3 @@ POST /api/users/login
 GET /api/users/profile
 Authorization: Bearer tu_token_jwt
 \```
-![CI](https://github.com/JasonOspina07/api-rest-portafolio/actions/workflows/ci.yml/badge.svg)

@@ -83,7 +83,7 @@ describe('POST /api/users/login', () => {
       .post('/api/users/login')
       .send({ email: 'noexiste@gmail.com', password: '123456' })
 
-    expect(res.status).toBe(400)
+    expect(res.status).toBe(401)
     expect(res.body.message).toBe('Credenciales incorrectas')
   })
 
@@ -102,7 +102,7 @@ describe('POST /api/users/login', () => {
       .post('/api/users/login')
       .send({ email: 'jason@gmail.com', password: 'claveIncorrecta' })
 
-    expect(res.status).toBe(400)
+    expect(res.status).toBe(401)
     expect(res.body.message).toBe('Credenciales incorrectas')
   })
 

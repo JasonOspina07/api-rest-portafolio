@@ -7,6 +7,19 @@ const register = async (req, res) => {
     try {
         const { name, email, password } = req.body
 
+        /* Validación de entrada */
+        if (!name || !email || !password) {
+            return res.status(400).json({
+                message: 'Nombre, email y contraseña son obligatorios'
+            })
+        }
+
+        if (password.length < 6) {
+            return res.status(400).json({
+                message: 'La contraseña debe tener al menos 6 caracteres'
+            })
+        }
+
         /* Verifica si el usuario ya existe*/
         const existingUser = await prisma.user.findUnique({
             where: { email }
@@ -49,13 +62,20 @@ const login = async (req, res) => {
     try {
         const { email, password } = req.body
 
+        /* Validación de entrada */
+        if (!email || !password) {
+            return res.status(400).json({
+                message: 'Email y contraseña son obligatorios'
+            })
+        }
+
         /* Busca el usuario*/
         const user = await prisma.user.findUnique({
             where: { email }
         })
 
         if (!user) {
-            return res.status(400).json({ 
+            return res.status(401).json({ 
                 message: 'Credenciales incorrectas' 
             })
         }
@@ -64,7 +84,7 @@ const login = async (req, res) => {
         const validPassword = await bcrypt.compare(password, user.password)
 
         if (!validPassword) {
-            return res.status(400).json({ 
+            return res.status(401).json({ 
                 message: 'Credenciales incorrectas' 
             })
         }
@@ -90,6 +110,7 @@ const login = async (req, res) => {
         res.status(500).json({ message: 'Error en el servidor', error: error.message })
     }
 }
+
 /* Obtener perfil*/
 const getProfile = async (req, res) => {
     try {
