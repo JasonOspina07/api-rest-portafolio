@@ -28,64 +28,84 @@ API RESTful construida con Node.js, Express y PostgreSQL que implementa autentic
 ## Instalación
 
 1. Clona el repositorio
-\```bash
+```bash
 git clone https://github.com/JasonOspina07/api-rest-portafolio.git
 cd api-rest-portafolio
-\```
+```
 
 2. Instala las dependencias
-\```bash
+```bash
 npm install
-\```
+```
 
 3. Configura las variables de entorno
-\```bash
+```bash
 cp .env.example .env
-\```
+```
 
 4. Genera el cliente de Prisma
-\```bash
+```bash
 npx prisma generate
-\```
+```
 
 5. Inicia el servidor
-\```bash
+```bash
 npm run dev
-\```
+```
 
 ## Variables de entorno
 
 Crea un archivo `.env` con estas variables:
 
-\```
+```
 PORT=3000
 DATABASE_URL=tu_url_de_postgresql
 JWT_SECRET=tu_clave_secreta
-\```
+```
 
 ## Uso de la API
 
 ### Registrar usuario
-\```json
+```json
 POST /api/users/register
 {
   "name": "Jason",
   "email": "jason@gmail.com",
   "password": "123456"
 }
-\```
+```
 
 ### Login
-\```json
+```json
 POST /api/users/login
 {
   "email": "jason@gmail.com",
   "password": "123456"
 }
-\```
+```
 
 ### Ver perfil (con token)
-\```
+```
 GET /api/users/profile
 Authorization: Bearer tu_token_jwt
-\```
+```
+
+## Tests
+
+Este proyecto incluye una suite de 21 tests (unitarios + integración):
+
+```bash
+npm test
+```
+
+- **Tests unitarios**: middleware de autenticación y controlador (con Prisma mockeado)
+- **Tests de integración**: flujo completo de registro, login y acceso a ruta protegida contra base de datos real
+
+##  Correr con Docker
+
+```bash
+docker build -t api-rest-portafolio .
+docker run -p 3000:3000 --env-file .env api-rest-portafolio
+```
+
+La API estará disponible en `http://localhost:3000`
